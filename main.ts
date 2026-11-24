@@ -43,6 +43,14 @@ export function validateEntry(text: string): void {
     if (line.trim().length === 0) {
       throw new Error(`line ${index + 1} must not be only whitespace`);
     }
+    // Each line is a single sentence, so it must contain exactly one
+    // sentence-ending period.
+    const periods = line.split("").filter((ch) => ch === ".").length;
+    if (periods !== 1) {
+      throw new Error(
+        `line ${index + 1} must be a single sentence with exactly one period, got ${periods}`,
+      );
+    }
   }
 }
 
